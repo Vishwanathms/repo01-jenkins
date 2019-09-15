@@ -1,0 +1,24 @@
+pipeline {
+    agent none
+    stages {
+        stage ("SCM Chkout-1"){
+            agent { label 'Java' }
+            steps {
+                git branch: 'B1', url: 'https://github.com/Vishwanathms/Java-Proj1'
+            }
+        }
+        stage ("java build"){
+            agent { label 'Java' }
+            steps {
+                sh "javac Samplecode.java"
+                sh "java Simple"
+            }
+        }
+        stage ("ls on jenkins"){
+            agent { label 'master' }
+            steps {
+                sh "ls -l"
+            }
+        }
+    }
+}
